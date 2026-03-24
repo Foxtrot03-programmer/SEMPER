@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TINKEBELL SOLUTION — Admin</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div id="loginScreen">
+  <div class="login-box">
+
+    <!-- Logo ya kampuni inayozunguka -->
+    <span class="login-logo">🔔</span>
+
+    <h1 class="login-title">TINKEBELL SOLUTION</h1>
+    <p class="login-sub">Admin Dashboard — Ingia kwa akaunti yako</p>
+
+    <!-- Field ya jina la mtumiaji -->
+    <div class="login-field">
+      <label>JINA LA MTUMIAJI</label>
+      <input type="text" id="loginUser" placeholder="admin" autocomplete="username">
+    </div>
+
+    <!-- Field ya nywila -->
+    <!-- onkeydown="..." = bonyeza Enter ili uingie (badala ya kitufe) -->
+    <div class="login-field">
+      <label>NYWILA</label>
+      <input type="password" id="loginPass" placeholder="••••••••"
+             autocomplete="current-password">
+    </div>
+
+    <!-- Kitufe cha kuingia — onclick inapiga simu fanyaLogin() kwenye admin.js -->
+    <button class="login-btn" onclick="fanyaLogin()">
+      Ingia kwenye Dashboard →
+    </button>
+
+    <!-- Ujumbe wa kosa — imefichwa mwanzoni, admin.js itaifunua -->
+    <p class="login-error" id="loginError">
+      ⚠️ Jina au nywila si sahihi. Jaribu tena.
+    </p>
+
+    <!-- Maelezo ya demo kwa mtumiaji wa mara ya kwanza -->
+    <p style="font-size:.75rem;color:var(--text2);margin-top:1.5rem;">
+      Demo login: jina <strong>admin</strong> | nywila <strong>tinkebell2025</strong>
+    </p>
+
+  </div>
+</div><!-- /loginScreen -->
+
+
+<!-- ================================================================
+     DASHBOARD — Imefichwa mpaka baada ya login
+     style="display:none" itaondolewa na admin.js baada ya login
+     ================================================================ -->
+<div id="dashboard">
+  <div class="layout">
+
+
+    <!-- ============================================================
+         SIDEBAR — Menyu ya upande wa kushoto
+         ============================================================ -->
+    <aside class="sidebar">
+
+      <!-- Logo ya kampuni juu ya sidebar -->
+      <div class="sidebar-logo">
+        <span class="sidebar-logo-icon">🔔</span>
+        <span class="sidebar-logo-text">TINKEBELL <span>ADMIN</span></span>
+      </div>
+
+      <!--
+        Kiungo cha kurudi website kuu ya wateja
+        ../index.html = nenda folder moja juu (kutoka admin/ → /)
+        target="_blank" = fungua tab mpya (dashboard inabaki wazi)
+      -->
+      <a href="../index.html" target="_blank" class="nav-item"
+         style="text-decoration:none; color:var(--text2);">
+        <span class="nav-icon">🌐</span>
+        <span>Ona Website</span>
+      </a>
+
+      <!-- Mstari wa kugawanya -->
+      <div class="sidebar-divider"></div>
+
+      <!--
+        Vitufe vya navigation ya dashboard
+        onclick="onyeshePage('overview', this)" =
+          piga simu function onyeshePage() kwenye admin.js
+          'overview' = jina la ukurasa
+          this = kitufe kilichobonyezwa (kwa active state)
+      -->
+      <button class="nav-item active" onclick="onyeshePage('overview', this)">
+        <span class="nav-icon">📊</span>
+        <span>Muhtasari</span>
+      </button>
+
+      <button class="nav-item" onclick="onyeshePage('maombi', this)">
+        <span class="nav-icon">📋</span>
+        <span>Maombi Yote</span>
+        <!-- Badge inaonyesha idadi ya maombi mapya — admin.js inaisasisha -->
+        <span class="nav-badge" id="sidebarBadge">0</span>
+      </button>
+
+      <button class="nav-item" onclick="onyeshePage('ripoti', this)">
+        <span class="nav-icon">📈</span>
+        <span>Ripoti</span>
+      </button>
+
+      <button class="nav-item" onclick="onyeshePage('mipangilio', this)">
+        <span class="nav-icon">⚙️</span>
+        <span>Mipangilio</span>
+      </button>
+
+      <!-- Sehemu ya chini ya sidebar — maelezo ya mtumiaji -->
+      <div class="sidebar-bottom">
+        <div class="sidebar-user">
+          <!-- Avatar ya herufi -->
+          <div class="user-avatar">A</div>
+          <div class="user-info">
+            <div class="user-name">Theodora</div>
+            <div class="user-role">Tinkebell Solution</div>
+          </div>
+          <!-- Kitufe cha kutoka — toka() ipo kwenye admin.js -->
+          <button class="logout-btn" onclick="toka()" title="Toka">🚪</button>
+        </div>
+      </div>
+
+    </aside><!-- /sidebar -->
+
+
+    <!-- ============================================================
+         MAIN CONTENT — Sehemu kuu ya dashboard (kulia)
+         ============================================================ -->
+    <main class="main">
+
+
+      <!-- ==========================================
+           PAGE 1: MUHTASARI (Overview)
+           Inaonekana kwanza ukiingia
+           ========================================== -->
+      <div class="page active" id="page-overview">
+
+        <!-- Kichwa cha ukurasa -->
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Habari, Theodora! 👋</h1>
+            <!-- Tarehe ya leo — inajazwa na admin.js -->
+            <p class="page-sub" id="dateDisplay"></p>
+          </div>
+          <div class="header-actions">
+            <!-- Kitufe cha kuongeza ombi jipya -->
+            <button class="btn-add" onclick="funguaModalMpya()">
+              + Ombi Jipya
+            </button>
+          </div>
+        </div>
+
+        <!-- Kadi 4 za takwimu — nambari zinajazwa na admin.js -->
+        <div class="stats-grid">
+
+          <div class="stat-card" style="--card-color:#3B82F6">
+            <div class="stat-icon">📋</div>
+            <div class="stat-num" id="statTotal">0</div>
+            <div class="stat-label">Maombi Yote</div>
+            <div class="stat-change neutral">Jumla ya maombi yote</div>
+          </div>
+
+          <div class="stat-card" style="--card-color:#F59E0B">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-num" id="statProgress">0</div>
+            <div class="stat-label">Yanayoendelea</div>
+            <div class="stat-change neutral">Yanahitaji kufanywa</div>
+          </div>
+
+          <div class="stat-card" style="--card-color:#10B981">
+            <div class="stat-icon">✅</div>
+            <div class="stat-num" id="statDone">0</div>
+            <div class="stat-label">Yaliyokamilika</div>
+            <!-- id="statDoneRate" inajazwa na admin.js -->
+            <div class="stat-change up" id="statDoneRate">— %</div>
+          </div>
+
+          <div class="stat-card" style="--card-color:#EF4444">
+            <div class="stat-icon">🔴</div>
+            <div class="stat-num" id="statNew">0</div>
+            <div class="stat-label">Maombi Mapya</div>
+            <div class="stat-change neutral">Hayajashughulikiwa</div>
+          </div>
+
+        </div><!-- /stats-grid -->
+
+        <!-- Jedwali la maombi 5 ya hivi karibuni -->
+        <div class="table-wrapper">
+          <div class="table-header-row">
+            <span class="table-title">📬 Maombi ya Hivi Karibuni</span>
+            <!-- Bonyeza "Ona yote" ili uende ukurasa wa maombi -->
+            <button class="action-btn"
+              onclick="onyeshePage('maombi', document.querySelectorAll('.nav-item')[2])">
+              Ona yote →
+            </button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Mteja</th>
+                <th>Huduma</th>
+                <th>Tarehe</th>
+                <th>Hali</th>
+                <th>Vitendo</th>
+              </tr>
+            </thead>
+            <!-- tbody hii inajazwa na renderTableRows() kwenye admin.js -->
+            <tbody id="recentTable"></tbody>
+          </table>
+        </div>
+
+      </div><!-- /page-overview -->
+
+
+      <!-- ==========================================
+           PAGE 2: MAOMBI YOTE
+           ========================================== -->
+      <div class="page" id="page-maombi">
+
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Maombi Yote</h1>
+            <p class="page-sub">Simamia maombi ya wateja wako</p>
+          </div>
+          <button class="btn-add" onclick="funguaModalMpya()">+ Ombi Jipya</button>
+        </div>
+
+        <!-- Upau wa kutafuta na kuchuja -->
+        <div class="filter-bar">
+
+          <!-- Sanduku la utafutaji wa maandishi -->
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <!--
+              oninput = fanya kila mara mtumiaji anaandika herufi
+              filterMaombi() ipo kwenye admin.js
+            -->
+            <input type="text" id="searchInput"
+                   placeholder="Tafuta kwa jina, simu, huduma..."
+                   oninput="filterMaombi()">
+          </div>
+
+          <!-- Chuja kwa hali -->
+          <select class="filter-select" id="statusFilter" onchange="filterMaombi()">
+            <option value="">Hali Zote</option>
+            <option value="Jipya">Jipya</option>
+            <option value="Inaendelea">Inaendelea</option>
+            <option value="Imekamilika">Imekamilika</option>
+            <option value="Inahitaji Nyaraka">Inahitaji Nyaraka</option>
+            <option value="Imebatilishwa">Imebatilishwa</option>
+          </select>
+
+          <!-- Chuja kwa huduma -->
+          <select class="filter-select" id="serviceFilter" onchange="filterMaombi()">
+            <option value="">Huduma Zote</option>
+            <option value="TIN">TIN (TRA)</option>
+            <option value="Tax Clearance">Tax Clearance</option>
+            <option value="Tax Return">Tax Return</option>
+            <option value="BRELA">BRELA</option>
+            <option value="Leseni">Leseni (TAUSI)</option>
+            <option value="Kuzaliwa">Cheti Kuzaliwa (RITHA)</option>
+          </select>
+
+          <!-- Kitufe cha kupakua CSV — exportCSV() ipo kwenye admin.js -->
+          <button class="action-btn" onclick="exportCSV()">📥 Export CSV</button>
+
+        </div><!-- /filter-bar -->
+
+        <!-- Jedwali kamili la maombi yote -->
+        <div class="table-wrapper">
+          <div class="table-header-row">
+            <span class="table-title">📋 Orodha ya Maombi</span>
+            <!-- Idadi inasasishwa na admin.js -->
+            <span class="table-count" id="tableCount">— maombi</span>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Mteja</th>
+                <th>Huduma</th>
+                <th>Tarehe</th>
+                <th>Hali</th>
+                <th>Vitendo</th>
+              </tr>
+            </thead>
+            <!-- tbody inajazwa na filterMaombi() → renderMaombiTable() -->
+            <tbody id="mainTable"></tbody>
+          </table>
+          <!-- Inaonekana kama hakuna maombi yanayolingana na utafutaji -->
+          <div id="emptyState" class="empty-state" style="display:none;">
+            <div class="empty-icon">📭</div>
+            <p>Hakuna maombi yanayolingana na utafutaji wako.</p>
+          </div>
+        </div>
+
+      </div><!-- /page-maombi -->
+
+
+      <!-- ==========================================
+           PAGE 3: RIPOTI
+           ========================================== -->
+      <div class="page" id="page-ripoti">
+
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Ripoti</h1>
+            <p class="page-sub">Takwimu za biashara yako</p>
+          </div>
+          <!-- printRipoti() ipo kwenye admin.js -->
+          <button class="action-btn" onclick="printRipoti()">🖨️ Print Ripoti</button>
+        </div>
+
+        <!-- Kadi 4 za ripoti — zinajazwa na renderRipoti() kwenye admin.js -->
+        <div class="report-grid">
+
+          <div class="report-card">
+            <div class="report-card-title">📊 Maombi kwa Huduma</div>
+            <div id="serviceChart"></div>
+          </div>
+
+          <div class="report-card">
+            <div class="report-card-title">🎯 Hali ya Maombi</div>
+            <div id="statusChart"></div>
+          </div>
+
+          <div class="report-card">
+            <div class="report-card-title">📈 Muhtasari wa Takwimu</div>
+            <div id="summaryStats"></div>
+          </div>
+
+          <div class="report-card">
+            <div class="report-card-title">🕐 Shughuli za Hivi Karibuni</div>
+            <div id="activityLog" style="max-height:280px;overflow-y:auto;"></div>
+          </div>
+
+        </div><!-- /report-grid -->
+
+      </div><!-- /page-ripoti -->
+
+
+      <!-- ==========================================
+           PAGE 4: MIPANGILIO
+           ========================================== -->
+      <div class="page" id="page-mipangilio">
+
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Mipangilio</h1>
+            <p class="page-sub">Badilisha nywila na maelezo ya akaunti</p>
+          </div>
+        </div>
+
+        <div style="max-width:500px;">
+
+          <!-- Sehemu ya kubadilisha nywila -->
+          <div class="report-card" style="margin-bottom:1.5rem;">
+            <div class="report-card-title" style="margin-bottom:1rem;">🔑 Badilisha Nywila</div>
+
+            <div class="form-group">
+              <label class="form-label">NYWILA YA SASA</label>
+              <input type="password" class="form-input" id="oldPass" placeholder="••••••••">
+            </div>
+            <div class="form-group">
+              <label class="form-label">NYWILA MPYA</label>
+              <input type="password" class="form-input" id="newPass" placeholder="••••••••">
+            </div>
+            <div class="form-group">
+              <label class="form-label">THIBITISHA NYWILA MPYA</label>
+              <input type="password" class="form-input" id="confirmPass" placeholder="••••••••">
+            </div>
+
+            <!-- badilishaNywila() ipo kwenye admin.js -->
+            <button class="btn-save" onclick="badilishaNywila()">
+              Hifadhi Nywila Mpya
+            </button>
+          </div>
+
+          <!-- Sehemu ya hatari — futa data yote -->
+          <div class="report-card">
+            <div class="report-card-title" style="margin-bottom:1rem;">⚠️ Eneo la Hatari</div>
+            <p style="font-size:.85rem;color:var(--text2);margin-bottom:1rem;">
+              Futa data yote ya maombi. Hatua hii haiwezi kurejeshwa kabisa!
+            </p>
+            <button class="action-btn danger"
+              style="background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.3);color:var(--red);"
+              onclick="if(confirm('Una uhakika kabisa? Data YOTE itafutwa na haiwezi kurejeshwa!')) futaDataYote()">
+              🗑️ Futa Data Yote
+            </button>
+          </div>
+
+        </div>
+
+      </div><!-- /page-mipangilio -->
+
+
+    </main><!-- /main -->
+  </div><!-- /layout -->
+</div><!-- /dashboard -->
+
+
+<!-- ================================================================
+     MODAL — Popup ya Kuongeza / Kuhariri Ombi
+     Imefichwa mwanzoni — funguaModalMpya() au funguaModalEdit() inaifungua
+     ================================================================ -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+
+    <div class="modal-header">
+      <!-- Kichwa kinabadilika: "Ombi Jipya" au "Hariri Ombi — Jina" -->
+      <h2 class="modal-title" id="modalTitle">Ombi Jipya</h2>
+      <!-- Funga modal — fungaModal() ipo kwenye admin.js -->
+      <button class="modal-close" onclick="fungaModal()">✕</button>
+    </div>
+
+    <!-- Fomu ya ombi — fields 5 -->
+    <div class="form-row">
+      <!-- Jina kamili -->
+      <div class="form-group">
+        <label class="form-label">JINA KAMILI *</label>
+        <input type="text" class="form-input" id="mJina" placeholder="Juma Ally">
+      </div>
+      <!-- Simu -->
+      <div class="form-group">
+        <label class="form-label">SIMU *</label>
+        <input type="tel" class="form-input" id="mSimu" placeholder="+255 XXX XXX XXX">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <!-- Barua pepe (si lazima) -->
+      <div class="form-group">
+        <label class="form-label">BARUA PEPE</label>
+        <input type="email" class="form-input" id="mEmail" placeholder="mfano@gmail.com">
+      </div>
+      <!-- Chagua huduma -->
+      <div class="form-group">
+        <label class="form-label">HUDUMA *</label>
+        <select class="form-select" id="mHuduma">
+          <option value="">-- Chagua --</option>
+          <option value="TIN">TIN (TRA)</option>
+          <option value="Tax Clearance">Tax Clearance (TRA)</option>
+          <option value="Tax Return">Tax Return (TRA)</option>
+          <option value="BRELA">BRELA</option>
+          <option value="Leseni">Leseni ya Biashara (TAUSI)</option>
+          <option value="Kuzaliwa">Cheti cha Kuzaliwa (RITHA)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <!-- Hali ya ombi -->
+      <div class="form-group">
+        <label class="form-label">HALI</label>
+        <select class="form-select" id="mStatus">
+          <option value="Jipya">🔵 Jipya</option>
+          <option value="Inaendelea">🟡 Inaendelea</option>
+          <option value="Inahitaji Nyaraka">🟣 Inahitaji Nyaraka</option>
+          <option value="Imekamilika">🟢 Imekamilika</option>
+          <option value="Imebatilishwa">🔴 Imebatilishwa</option>
+        </select>
+      </div>
+      <!-- Tarehe ya ombi -->
+      <div class="form-group">
+        <label class="form-label">TAREHE</label>
+        <input type="date" class="form-input" id="mTarehe">
+      </div>
+    </div>
+
+    <!-- Maelezo ya ziada -->
+    <div class="form-group">
+      <label class="form-label">MAELEZO / NOTES</label>
+      <textarea class="form-textarea" id="mNotes"
+                placeholder="Maelezo ya ziada kuhusu ombi hili..."></textarea>
+    </div>
+
+    <!-- Sehemu ya kutuma WhatsApp — inaonekana moja kwa moja kwenye modal -->
+    <div style="border-top:1px solid var(--border);padding-top:1rem;margin-top:.5rem;">
+      <p style="font-size:.8rem;color:var(--text2);margin-bottom:.8rem;font-weight:600;">
+        📱 TUMA UJUMBE KWA MTEJA
+      </p>
+      <!-- tumaWhatsApp() inatumia thamani za fields za juu -->
+      <button class="wa-btn" onclick="tumaWhatsApp()">
+        📱 Fungua WhatsApp — Tuma Ujumbe kwa Mteja
+      </button>
+    </div>
+
+    <!-- Vitufe vya chini ya modal -->
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="fungaModal()">Ghairi</button>
+      <!-- hifadhiOmbi() ipo kwenye admin.js — inaangalia na kuhifadhi -->
+      <button class="btn-save" onclick="hifadhiOmbi()">💾 Hifadhi Ombi</button>
+    </div>
+
+  </div>
+</div><!-- /modal -->
+
+
+<!-- Toast notification — ujumbe mfupi wa mafanikio au kosa -->
+<!-- Inajazwa na onyeshaToast() kwenye admin.js -->
+<div id="toast"></div>
+
+<script src="supabase-config.js"></script>
+
+<!--
+  Hatua ya 2: Pakia admin.js BAADAYE
+  Inatumia db object iliyoundwa na supabase-config.js
+-->
+<script src="admin.js"></script>
+
+
+</body>
+</html>

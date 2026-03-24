@@ -1,0 +1,741 @@
+/* ------------------------------------------------
+   SEHEMU 1: MIPANGILIO YA MSINGI (CSS Variables)
+   Tunahifadhi rangi zetu hapa ili tunapo badilisha
+   rangi moja, inabadilika kila mahali.
+------------------------------------------------ */
+:root {
+  /* Rangi kuu za kampuni */
+  --rangi-kuu:     #1a1a2e;   /* Navy nyeusi - background kuu */
+  --rangi-kati:    #16213e;   /* Navy ya kati - maeneo mengine */
+  --rangi-mwanga:  #0f3460;   /* Navy ya bluu - kadi na vitu */
+  --rangi-dhahabu: #e94560;   /* Nyekundu-waridi - msisitizo/accent */
+  --rangi-gold:    #f5a623;   /* Manjano dhahabu - highlights */
+  --rangi-text:    #e0e0e0;   /* Kijivu-nyeupe - maandishi ya kawaida */
+  --rangi-gray:    #8892b0;   /* Kijivu - maandishi ya sekondari */
+  --rangi-white:   #ffffff;   /* Nyeupe kamili */
+
+  /* Ukubwa wa fonti */
+  --font-kubwa:  2.8rem;
+  --font-kati:   1.5rem;
+  --font-kawaida: 1rem;
+  --font-ndogo:  0.85rem;
+}
+/* ------------------------------------------------
+   SEHEMU 2: RESET 
+------------------------------------------------ */
+* {
+  margin: 0;           
+  padding: 0;        
+  box-sizing: border-box; 
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif; /* Font iliyoletwa kutoka Google */
+  background-color: var(--rangi-kuu); /* Background nyeusi */
+  color: var(--rangi-text);           /* Rangi ya maandishi */
+  line-height: 1.6;                   /* Nafasi kati ya mistari */
+
+  background-image:
+    linear-gradient(rgba(233,69,96,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(233,69,96,0.03) 1px, transparent 1px);
+  background-size: 50px 50px; /* Ukubwa wa gridi */
+}
+
+.navbar {
+  position: fixed;    /* Inabaki sehemu moja - haifuati scroll */
+  top: 0;             /* Juu kabisa */
+  left: 0;
+  right: 0;
+  z-index: 1000;      /* Inakuwa juu ya vitu vingine vyote */
+
+  display: flex;               /* Panga vitu kwa mstari mmoja */
+  align-items: center;         /* Panga kati kwa wima */
+  justify-content: space-between; /* Weka nafasi kati ya vitu */
+
+  padding: 1rem 5%;            /* Nafasi ndani: juu/chini 1rem, pande 5% */
+  background: rgba(26, 26, 46, 0.92); /* Background nusu-wazi */
+  backdrop-filter: blur(12px); /* Ukungu nyuma ya navbar */
+  border-bottom: 1px solid rgba(233,69,96,0.2); /* Mstari mwembamba chini */
+}
+
+/* Nembo - jina la kampuni */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;        /* Nafasi kati ya icon na maandishi */
+}
+
+.logo-icon {
+  font-size: 1.6rem;
+}
+
+.logo-text {
+  font-size: 1.1rem;
+  color: var(--rangi-white);
+  letter-spacing: 0.02em; /* Nafasi kidogo kati ya herufi */
+}
+
+/* Viungo vya navbar */
+.nav-links {
+  display: flex;
+  list-style: none;  /* Futa alama za bullet */
+  gap: 2rem;
+}
+
+.nav-links a {
+  text-decoration: none;         /* Futa mstari chini ya viungo */
+  color: var(--rangi-gray);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.3s ease;  /* Mabadiliko ya rangi polepole */
+}
+
+/* Wakati mtumiaji anaweka mkono juu ya kiungo */
+.nav-links a:hover {
+  color: var(--rangi-dhahabu);
+}
+
+/* Kitufe cha kubadilisha lugha */
+.lang-btn {
+  background: rgba(233,69,96,0.15); /* Background nyekundu hafifu */
+  border: 1.5px solid var(--rangi-dhahabu);
+  color: var(--rangi-dhahabu);
+  padding: 0.45rem 1.1rem;
+  border-radius: 20px;            /* Mviringo - inaonekana kama kitufe */
+  cursor: pointer;                /* Mkono wa kubonyeza */
+  font-size: 0.85rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+  background: var(--rangi-dhahabu);
+  color: var(--rangi-kuu);
+}
+/* ------------------------------------------------
+   SEHEMU 4: HERO (Sehemu kuu ya juu)
+------------------------------------------------ */
+.hero {
+  min-height: 100vh; /* Angalau urefu kamili wa skrini */
+  display: flex;
+  flex-direction: column;  /* Panga vitu chini kwa chini */
+  align-items: center;     /* Kati kwa usawa */
+  justify-content: center; /* Kati kwa wima */
+  text-align: center;
+  padding: 7rem 5% 4rem;  /* Juu zaidi (7rem) kwa sababu ya navbar */
+
+  /* Gradient ya nyuma - kutoka juu kwenda chini */
+  background: linear-gradient(
+    160deg,
+    rgba(233,69,96,0.06) 0%,
+    var(--rangi-kuu) 40%,
+    rgba(15,52,96,0.3) 100%
+  );
+}
+
+/* Lebo ndogo ya juu */
+.hero-badge {
+  display: inline-block;
+  background: rgba(233,69,96,0.12);
+  border: 1px solid rgba(233,69,96,0.35);
+  color: var(--rangi-dhahabu);
+  padding: 0.4rem 1.2rem;
+  border-radius: 999px;   /* Duara kamili - kama capsule */
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+}
+
+/* Kichwa kikubwa */
+.hero-title {
+  font-size: var(--font-kubwa);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--rangi-white);
+  margin-bottom: 1.2rem;
+}
+
+/* Maneno yenye rangi maalum (Haraka & Rahisi) */
+.highlight {
+  color: var(--rangi-dhahabu);
+}
+
+/* Maelezo mafupi chini ya kichwa */
+.hero-desc {
+  font-size: 1.1rem;
+  color: var(--rangi-gray);
+  max-width: 560px;       /* Usipite upana huu */
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+/* Sanduku la vitufe viwili */
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;         /* Vitufe vipande tofauti kwenye simu ndogo */
+  justify-content: center;
+}
+
+/* Kitufe kikuu - chenye rangi */
+.btn-main {
+  background: var(--rangi-dhahabu);
+  color: var(--rangi-white);
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(233,69,96,0.35);
+}
+
+.btn-main:hover {
+  transform: translateY(-2px); /* Kitufe kinainuka kidogo */
+  box-shadow: 0 8px 25px rgba(233,69,96,0.5);
+}
+
+/* Kitufe cha nje - hakina rangi ndani */
+.btn-outline {
+  background: transparent;
+  color: var(--rangi-text);
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1.5px solid rgba(233,69,96,0.4);
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  border-color: var(--rangi-dhahabu);
+  color: var(--rangi-dhahabu);
+}
+/* ------------------------------------------------
+   SEHEMU 5: STATS BAR (Ukanda wa nambari)
+------------------------------------------------ */
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 3rem;
+  padding: 2.5rem 5%;
+  background: var(--rangi-kati);
+  border-top: 1px solid rgba(233,69,96,0.15);
+  border-bottom: 1px solid rgba(233,69,96,0.15);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+/* Nambari kubwa */
+.stat-number {
+  display: block;        /* Chukua mstari wake mwenyewe */
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--rangi-dhahabu);
+}
+
+/* Maandishi chini ya nambari */
+.stat-label {
+  display: block;
+  font-size: var(--font-ndogo);
+  color: var(--rangi-gray);
+  letter-spacing: 0.05em;
+  margin-top: 0.2rem;
+}
+/* ------------------------------------------------
+   SEHEMU 6: HUDUMA (Services Section)
+------------------------------------------------ */
+.services-section {
+  padding: 5rem 5%;
+  background: var(--rangi-kuu);
+}
+
+/* Kichwa cha kila sehemu */
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* Lebo ndogo ya rangi (mfano: "Orodha ya Huduma") */
+.section-tag {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--rangi-dhahabu);
+  text-transform: uppercase; /* Herufi kubwa zote */
+  margin-bottom: 0.6rem;
+}
+
+/* Kichwa kikubwa cha sehemu */
+.section-title {
+  font-size: var(--font-kati);
+  font-weight: 700;
+  color: var(--rangi-white);
+  margin-bottom: 0.8rem;
+}
+
+/* Maelezo mafupi chini ya kichwa */
+.section-sub {
+  font-size: var(--font-kawaida);
+  color: var(--rangi-gray);
+}
+
+/* Gridi ya kadi - zinapangwa kwa safu otomatiki */
+.cards-grid {
+  display: grid;
+  /* auto-fill = jaza kadi nyingi iwezekanavyo
+     minmax(280px, 1fr) = kila kadi angalau 280px, lakini ikua pamoja */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;              /* Nafasi kati ya kadi */
+  max-width: 1100px;
+  margin: 0 auto;           /* Kati ya ukurasa */
+}
+
+/* Kadi moja ya huduma */
+.service-card {
+  background: linear-gradient(145deg, var(--rangi-mwanga), var(--rangi-kati));
+  border: 1px solid rgba(233,69,96,0.15);
+  border-radius: 14px;
+  padding: 1.8rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+}
+
+/* Kadi inainuka wakati mkono unawekwa juu */
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  border-color: rgba(233,69,96,0.4);
+}
+
+/* Sehemu ya juu ya kadi (emoji + jina la agency) */
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.card-emoji {
+  font-size: 2rem;
+}
+
+/* Jina la agency (TRA, BRELA, nk.) */
+.card-agency {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--rangi-dhahabu);
+  background: rgba(233,69,96,0.1);
+  border: 1px solid rgba(233,69,96,0.25);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+
+/* Jina la huduma */
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--rangi-white);
+  margin-bottom: 0.7rem;
+}
+
+/* Maelezo ya huduma */
+.card-desc {
+  font-size: 0.88rem;
+  color: var(--rangi-gray);
+  line-height: 1.6;
+  margin-bottom: 1.3rem;
+}
+
+/* Sehemu ya chini ya kadi (muda + kiungo) */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-time {
+  font-size: 0.78rem;
+  color: var(--rangi-gray);
+}
+
+/* Kiungo cha "Omba →" */
+.card-link {
+  text-decoration: none;
+  color: var(--rangi-dhahabu);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.card-link:hover {
+  color: var(--rangi-white);
+}
+/* ------------------------------------------------
+   SEHEMU 7: JINSI INAVYOFANYA KAZI (How It Works)
+------------------------------------------------ */
+.how-section {
+  padding: 5rem 5%;
+  /* Gradient tofauti kidogo ili iwe mwanga tofauti na sehemu nyingine */
+  background: linear-gradient(135deg, var(--rangi-kati) 0%, var(--rangi-kuu) 100%);
+}
+
+/* Mstari wa hatua 4 */
+.steps-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;   /* Kwenye simu ndogo zinashuka chini */
+  gap: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Kila sanduku la hatua */
+.step-box {
+  background: var(--rangi-mwanga);
+  border: 1px solid rgba(233,69,96,0.2);
+  border-radius: 14px;
+  padding: 1.8rem 1.5rem;
+  text-align: center;
+  max-width: 200px;
+  flex: 1;           /* Kila sanduku linachukua nafasi sawasawa */
+  min-width: 150px;
+}
+
+/* Nambari ya hatua - mduara */
+.step-number {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;     /* Inafanya mduara */
+  background: linear-gradient(135deg, var(--rangi-dhahabu), #c73652);
+  color: var(--rangi-white);
+  font-weight: 700;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.step-box h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--rangi-white);
+  margin-bottom: 0.5rem;
+}
+
+.step-box p {
+  font-size: 0.82rem;
+  color: var(--rangi-gray);
+  line-height: 1.5;
+}
+
+/* Mishale kati ya hatua */
+.step-arrow {
+  font-size: 1.5rem;
+  color: rgba(233,69,96,0.5);
+  font-weight: 700;
+}
+/* ------------------------------------------------
+   SEHEMU 8: FOMU YA MAWASILIANO
+------------------------------------------------ */
+.contact-section {
+  padding: 5rem 5%;
+  background: var(--rangi-kuu);
+}
+
+/* Sanduku linaloshikilia taarifa na fomu */
+.contact-wrapper {
+  display: grid;
+  /* Mgawanyo wa gridi: 1fr na 1.5fr - fomu ni pana zaidi */
+  grid-template-columns: 1fr 1.5fr;
+  gap: 3rem;
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+/* Upande wa kushoto - taarifa za kampuni */
+.contact-info {
+  background: var(--rangi-kati);
+  border: 1px solid rgba(233,69,96,0.15);
+  border-radius: 14px;
+  padding: 2rem;
+}
+
+.contact-info h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--rangi-white);
+  margin-bottom: 0.7rem;
+}
+
+.contact-info > p {
+  font-size: 0.88rem;
+  color: var(--rangi-gray);
+  line-height: 1.6;
+  margin-bottom: 1.8rem;
+}
+
+/* Kila kipande cha taarifa (simu, email, nk.) */
+.info-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1.3rem;
+}
+
+.info-icon {
+  font-size: 1.3rem;
+  margin-top: 0.1rem;
+}
+
+.info-item strong {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--rangi-text);
+  margin-bottom: 0.15rem;
+}
+
+.info-item p {
+  font-size: 0.83rem;
+  color: var(--rangi-gray);
+}
+
+/* ---- FOMU ---- */
+.contact-form {
+  background: var(--rangi-kati);
+  border: 1px solid rgba(233,69,96,0.15);
+  border-radius: 14px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Kila kikundi cha field (label + input + error) */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Lebo za fomu */
+.form-group label {
+  font-size: 0.85rem;
+  color: var(--rangi-text);
+  font-weight: 500;
+}
+
+/* Input fields - text, email */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: rgba(15, 52, 96, 0.4);  /* Background ya bluu hafifu */
+  border: 1.5px solid rgba(233,69,96,0.18);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: var(--rangi-white);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  outline: none;                       /* Futa mstari wa browser */
+  transition: border-color 0.3s ease;
+}
+
+/* Placeholder (maandishi ya kuonyesha mfano) */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(136,146,176,0.6);
+}
+
+/* Rangi inabadilika mtumiaji anapobonyeza field */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--rangi-dhahabu);
+}
+
+/* Select dropdown */
+.form-group select option {
+  background: var(--rangi-kati);
+  color: var(--rangi-white);
+}
+
+/* Textarea - hakuna kunyoosha kwa usawa */
+.form-group textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* Maandishi ya kosa - nyekundu */
+.error-msg {
+  font-size: 0.78rem;
+  color: #ff6b6b;   /* Nyekundu ya makosa */
+  font-weight: 500;
+  min-height: 1rem; /* Huhifadhi nafasi hata kama haionekani */
+}
+
+/* Kitufe cha kutuma fomu */
+.btn-submit {
+  background: var(--rangi-dhahabu);
+  color: var(--rangi-white);
+  border: none;
+  padding: 0.9rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(233,69,96,0.3);
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(233,69,96,0.5);
+}
+
+/* Hali ya kitufe kinachofanya kazi */
+.btn-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Ujumbe wa mafanikio - unaficha kwa default */
+.success-msg {
+  display: none;          /* Haionekani mpaka JS iionyeshe */
+  align-items: center;
+  gap: 0.7rem;
+  background: rgba(34, 197, 94, 0.12); /* Kijani hafifu */
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #4ade80;         /* Kijani */
+  font-weight: 500;
+}
+
+/* Wakati JS inabadilisha display kuwa flex */
+.success-msg.inaonyesha {
+  display: flex;
+}
+
+/* Field iliyokuwa na kosa - mstari mwekundu */
+.field-kosa {
+  border-color: #ff6b6b !important; /* !important inashinda mipangilio mingine */
+}
+
+/* Field nzuri - mstari wa kijani */
+.field-sawa {
+  border-color: #4ade80 !important;
+}
+/* ------------------------------------------------
+   SEHEMU 9: FOOTER (Chini ya ukurasa)
+------------------------------------------------ */
+.footer {
+  background: var(--rangi-kati);
+  border-top: 1px solid rgba(233,69,96,0.15);
+  padding: 2rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: var(--rangi-white);
+}
+
+.footer-copy {
+  font-size: 0.82rem;
+  color: var(--rangi-gray);
+}
+
+/* ------------------------------------------------
+   SEHEMU 10: RESPONSIVE DESIGN
+
+   @media - unasema "kama skrini ni ndogo kuliko Xpx,
+   tumia mipangilio hii badala"
+------------------------------------------------ */
+
+/* Kwa simu za kati (chini ya 768px) */
+@media (max-width: 768px) {
+
+  /* Ficha viungo vya navbar kwenye simu ndogo */
+  .nav-links {
+    display: none;
+  }
+
+  /* Kichwa kidogo zaidi */
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  /* Fomu ishuke chini (si pamoja) */
+  .contact-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  /* Hatua zishuke chini */
+  .steps-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Ficha mishale kwenye simu */
+  .step-arrow {
+    transform: rotate(90deg);
+  }
+
+  .footer {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* Kwa simu ndogo sana (chini ya 480px) */
+@media (max-width: 480px) {
+  .stats-bar {
+    gap: 1.5rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+/* ================================================
+   ADMIN LINK - Kiungo kidogo 
+   ================================================ */
+.admin-link {
+  color: var(--text-light);
+  font-size: 0.85rem;
+  opacity: 0.35; /* Transparent sana */
+  text-decoration: none;
+  padding: 0.3rem;
+  border-radius: 6px;
+  transition: opacity 0.2s, color 0.2s;
+  margin-left: 0.3rem;
+}
+
+.admin-link:hover {
+  opacity: 1;
+  color: var(--bluu);
+  background: var(--bluu-light);
+}

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tinkebell Solution</title>
+
+  <!-- Google Fonts - Fonts nzuri kutoka internet -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+
+    <div class="logo">
+      <span class="logo-icon">🔔</span>
+      <span class="logo-text">Tinkebell <strong>Solution</strong></span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#home"     data-key="nav_home">Nyumbani</a></li>
+      <li><a href="#services" data-key="nav_services">Huduma</a></li>
+      <li><a href="#how"      data-key="nav_how">Jinsi Inavyofanya</a></li>
+      <li><a href="#contact"  data-key="nav_contact">Wasiliana</a></li>
+    </ul>
+
+    <!-- Kitufe cha kubadilisha lugha Swahili / English -->
+    <button class="lang-btn" id="langToggle" onclick="badilishaLugha()">
+      🌐 Kiswahili
+    </button>
+
+    <!--
+      Kiungo cha Admin
+    -->
+    <a href="admin/admin.html" class="admin-link" title="Admin">
+      ⚙️
+    </a>
+
+  </nav>
+  <!-- ================================================
+       SEHEMU YA 2: HERO (Sehemu kuu ya juu - karibu)
+  ================================================ -->
+  <section class="hero" id="home">
+
+    <p class="hero-badge" data-key="hero_badge">✦ Huduma Rasmi za Serikali</p>
+
+    <h1 class="hero-title">
+      <span data-key="hero_title1">Usajili wa Serikali</span><br />
+      <span class="highlight" data-key="hero_title2">Haraka &amp; Rahisi</span>
+    </h1>
+
+    <p class="hero-desc" data-key="hero_desc">
+      Tinkebell Solution inakusaidia kupata nyaraka zako zote za serikali
+      bila msongo wa mawazo. Tuko hapa kukusaidia!
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#services" class="btn-main"    data-key="hero_btn1">Angalia Huduma</a>
+      <a href="#contact"  class="btn-outline" data-key="hero_btn2">Wasiliana Nasi</a>
+    </div>
+
+  </section>
+
+
+  <!-- ================================================
+       SEHEMU YA 3: TAKWIMU (Nambari za uzoefu)
+  ================================================ -->
+  <div class="stats-bar">
+
+    <div class="stat-item">
+      <span class="stat-number">300+</span>
+      <span class="stat-label" data-key="stat1">Wateja Tuliosaidia</span>
+    </div>
+
+    <div class="stat-item">
+      <span class="stat-number">6</span>
+      <span class="stat-label" data-key="stat2">Aina za Huduma</span>
+    </div>
+
+    <div class="stat-item">
+      <span class="stat-number">3</span>
+      <span class="stat-label" data-key="stat3">Siku za Wastani</span>
+    </div>
+
+    <div class="stat-item">
+      <span class="stat-number">99%</span>
+      <span class="stat-label" data-key="stat4">Mafanikio ya Maombi</span>
+    </div>
+
+  </div>
+
+
+  <!-- ================================================
+       SEHEMU YA 4: HUDUMA (Kadi 6 za huduma)
+  ================================================ -->
+  <section class="services-section" id="services">
+
+    <!-- Kichwa cha sehemu -->
+    <div class="section-header">
+      <p class="section-tag"   data-key="services_tag">Orodha ya Huduma</p>
+      <h2 class="section-title" data-key="services_title">Huduma Zetu</h2>
+      <p class="section-sub"   data-key="services_sub">Chagua huduma unayoihitaji</p>
+    </div>
+
+    <!-- Gridi: Kadi 6 zinapanga katika safu -->
+    <div class="cards-grid">
+
+      <!-- KADI 1: TIN -->
+      <div class="service-card">
+        <div class="card-top">
+          <span class="card-emoji">🪪</span>
+          <span class="card-agency">TRA</span>
+        </div>
+        <h3 class="card-title" data-key="s1_title">Usajili wa TIN</h3>
+        <p class="card-desc"   data-key="s1_desc">
+          Pata Nambari yako ya Mlipa Kodi (TIN) kutoka TRA.
+          Inahitajika kwa biashara yoyote Tanzania.
+        </p>
+        <div class="card-footer">
+          <span class="card-time" data-key="s1_time">⏱ Siku 1 - 3</span>
+          <a href="#contact" class="card-link" data-key="apply">Omba →</a>
+        </div>
+      </div>
+
+      <!-- KADI 2: Tax Clearance -->
+      <div class="service-card">
+        <div class="card-top">
+          <span class="card-emoji">✅</span>
+          <span class="card-agency">TRA</span>
+        </div>
+        <h3 class="card-title" data-key="s2_title">Tax Clearance Certificate</h3>
+        <p class="card-desc"   data-key="s2_desc">
+          Hati inayothibitisha huna deni la kodi. Inahitajika
+          kwa zabuni za serikali.
+        </p>
+        <div class="card-footer">
+          <span class="card-time" data-key="s2_time">⏱ Siku 2 - 5</span>
+          <a href="#contact" class="card-link" data-key="apply">Omba →</a>
+        </div>
+      </div>
+
+      <!-- KADI 3: Tax Return -->
+      <div class="service-card">
+        <div class="card-top">
+          <span class="card-emoji">📊</span>
+          <span class="card-agency">TRA</span>
+        </div>
+        <h3 class="card-title" data-key="s3_title">Tax Return</h3>
+        <p class="card-desc"   data-key="s3_desc">
+          Uwasilishaji wa taarifa za kodi kwa TRA kila mwaka.
+          VAT, PAYE na kodi nyingine.
+        </p>
+        <div class="card-footer">
+          <span class="card-time" data-key="s3_time">⏱ Siku 1 - 2</span>
+          <a href="#contact" class="card-link" data-key="apply">Omba →</a>
+        </div>
+      </div>
+
+      <!-- KADI 4: BRELA -->
+      <div class="service-card">
+        <div class="card-top">
+          <span class="card-emoji">🏢</span>
+          <span class="card-agency">BRELA</span>
+        </div>
+        <h3 class="card-title" data-key="s4_title">Usajili wa Biashara / Kampuni</h3>
+        <p class="card-desc"   data-key="s4_desc">
+          Sajili jina la biashara yako au kampuni rasmi
+          kupitia BRELA.
+        </p>
+        <div class="card-footer">
+          <span class="card-time" data-key="s4_time">⏱ Siku 3 - 7</span>
+          <a href="#contact" class="card-link" data-key="apply">Omba →</a>
+        </div>
+      </div>
+
+      <!-- KADI 5: TAUSI -->
+      <div class="service-card">
+        <div class="card-top">
+          <span class="card-emoji">📋</span>
+          <span class="card-agency">TAUSI</span>
+        </div>
+        <h3 class="card-title" data-key="s5_title">Leseni ya Biashara</h3>
+        <p class="card-desc"   data-key="s5_desc">
+          Pata leseni ya biashara kupitia mfumo wa TAUSI
+          na Halmashauri ya eneo lako.
+        </p>
+        <div class="card-footer">
+          <span class="card-time" data-key="s5_time">⏱ Siku 2 - 5</span>
+          <a href="#contact" class="card-link" data-key="apply">Omba →</a>
+        </div>
+      </div>
+
+      <!-- KADI 6: RITHA -->
+      <div class="service-card">
+        <div class="card-top">
+          <span class="card-emoji">📜</span>
+          <span class="card-agency">RITHA</span>
+        </div>
+        <h3 class="card-title" data-key="s6_title">Cheti cha Kuzaliwa</h3>
+        <p class="card-desc"   data-key="s6_desc">
+          Usajili na upatikanaji wa Cheti cha Kuzaliwa
+          kupitia RITHA kwa watoto na watu wazima.
+        </p>
+        <div class="card-footer">
+          <span class="card-time" data-key="s6_time">⏱ Siku 3 - 7</span>
+          <a href="#contact" class="card-link" data-key="apply">Omba →</a>
+        </div>
+      </div>
+
+    </div>
+    <!-- /GRIDI -->
+
+  </section>
+  <!-- ================================================
+       SEHEMU YA 5: JINSI INAVYOFANYA KAZI (Hatua 4)
+  ================================================ -->
+  <section class="how-section" id="how">
+
+    <div class="section-header">
+      <p class="section-tag"    data-key="how_tag">Mchakato Wetu</p>
+      <h2 class="section-title" data-key="how_title">Jinsi Inavyofanya Kazi</h2>
+      <p class="section-sub"    data-key="how_sub">Hatua 4 tu - rahisi na ya haraka</p>
+    </div>
+
+    <!-- Hatua 4 zinaonyeshwa kwa mstari -->
+    <div class="steps-grid">
+
+      <div class="step-box">
+        <div class="step-number">1</div>
+        <h4 data-key="step1_title">Wasiliana Nasi</h4>
+        <p  data-key="step1_desc">Piga simu, tuma WhatsApp, au jaza fomu yetu.</p>
+      </div>
+
+      <div class="step-arrow">→</div>
+
+      <div class="step-box">
+        <div class="step-number">2</div>
+        <h4 data-key="step2_title">Tuma Nyaraka</h4>
+        <p  data-key="step2_desc">Tutakuambia nyaraka unazohitaji. Pigia picha na tututumie.</p>
+      </div>
+
+      <div class="step-arrow">→</div>
+
+      <div class="step-box">
+        <div class="step-number">3</div>
+        <h4 data-key="step3_title">Tunashughulikia</h4>
+        <p  data-key="step3_desc">Timu yetu inafanya maombi yote rasmi kwa niaba yako.</p>
+      </div>
+
+      <div class="step-arrow">→</div>
+
+      <div class="step-box">
+        <div class="step-number">4</div>
+        <h4 data-key="step4_title">Pokea Hati Yako</h4>
+        <p  data-key="step4_desc">Unapokea hati yako rasmi. Tumekumaliza!</p>
+      </div>
+
+    </div>
+
+  </section>
+  <!-- ================================================
+       SEHEMU YA 6: FOMU YA MAWASILIANO
+       onsubmit - inaita function ya JavaScript
+  ================================================ -->
+  <section class="contact-section" id="contact">
+
+    <div class="section-header">
+      <p class="section-tag"    data-key="contact_tag">Wasiliana Nasi</p>
+      <h2 class="section-title" data-key="contact_title">Tuma Ombi Lako</h2>
+      <p class="section-sub"    data-key="contact_sub">Jaza fomu hapa chini - tutajibu haraka</p>
+    </div>
+
+    <div class="contact-wrapper">
+
+      <!-- Taarifa za kampuni - upande wa kushoto -->
+      <div class="contact-info">
+        <h3 data-key="info_title">Tinkebell Solution</h3>
+        <p  data-key="info_desc">Tuko hapa kukusaidia kupata hati zako kwa wakati na kwa bei nzuri.</p>
+
+        <div class="info-item">
+          <span class="info-icon">📞</span>
+          <div>
+            <strong data-key="phone_label">Simu / WhatsApp</strong>
+            <p>+255 XXX XXX XXX</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <span class="info-icon">📧</span>
+          <div>
+            <strong data-key="email_label">Barua Pepe</strong>
+            <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f49d9a929bb4809d9a9f9196919898da979bda808e">[email&#160;protected]</a></p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <span class="info-icon">⏰</span>
+          <div>
+            <strong data-key="hours_label">Masaa ya Kazi</strong>
+            <p data-key="hours_val">Jumatatu - Ijumaa: 8:00 - 18:00</p>
+          </div>
+        </div>
+
+      </div>
+
+      <form class="contact-form" id="contactForm" onsubmit="thibitishaFormu(event)">
+
+        <!-- FIELD: Jina -->
+        <div class="form-group">
+          <label for="jina" data-key="form_name">Jina Lako *</label>
+          <input type="text" id="jina" placeholder="Mfano: Juma Ally" />
+          <!-- Span hii inaonyesha kosa kama jina halijajazwa -->
+          <span class="error-msg" id="jina-error"></span>
+        </div>
+
+        <!-- FIELD: Simu -->
+        <div class="form-group">
+          <label for="simu" data-key="form_phone">Nambari ya Simu *</label>
+          <input type="text" id="simu" placeholder="+255 xxx xxx xxx" />
+          <span class="error-msg" id="simu-error"></span>
+        </div>
+
+        <!-- FIELD: Barua Pepe -->
+        <div class="form-group">
+          <label for="email" data-key="form_email">Barua Pepe (si lazima)</label>
+          <input type="email" id="email" placeholder="mfano@email.com" />
+          <span class="error-msg" id="email-error"></span>
+        </div>
+
+        <!-- FIELD: Chaguo la Huduma -->
+        <div class="form-group">
+          <label for="huduma" data-key="form_service">Huduma Unayohitaji *</label>
+          <select id="huduma">
+            <option value=""         data-key="form_select">-- Chagua Huduma --</option>
+            <option value="tin"      data-key="opt1">Usajili wa TIN (TRA)</option>
+            <option value="clear"    data-key="opt2">Tax Clearance Certificate</option>
+            <option value="return"   data-key="opt3">Tax Return</option>
+            <option value="brela"    data-key="opt4">Usajili wa Biashara (BRELA)</option>
+            <option value="leseni"   data-key="opt5">Leseni ya Biashara (TAUSI)</option>
+            <option value="kuzaliwa" data-key="opt6">Cheti cha Kuzaliwa (RITHA)</option>
+          </select>
+          <span class="error-msg" id="huduma-error"></span>
+        </div>
+
+        <!-- FIELD: Ujumbe zaidi (si lazima) -->
+        <div class="form-group">
+          <label for="ujumbe" data-key="form_msg">Ujumbe Zaidi</label>
+          <textarea id="ujumbe" rows="4" placeholder="Niambie zaidi..."></textarea>
+        </div>
+
+        <!-- Kitufe cha kutuma -->
+        <button type="submit" class="btn-submit" id="submitBtn" data-key="form_submit">
+          Tuma Ombi →
+        </button>
+
+        <!-- Ujumbe wa mafanikio - unaonekana baada ya kutuma fomu vizuri -->
+        <div class="success-msg" id="successMsg">
+          <span>✅</span>
+          <span data-key="success_msg">Asante! Tutawasiliana nawe hivi karibuni.</span>
+        </div>
+
+      </form>
+
+    </div>
+
+  </section>
+  <!-- ================================================
+       SEHEMU YA 7: FOOTER (Mwisho wa ukurasa)
+  ================================================ -->
+  <footer class="footer">
+
+    <div class="footer-logo">
+      <span>🔔</span>
+      <span>Tinkebell <strong>Solution</strong></span>
+    </div>
+
+    <p class="footer-copy" data-key="footer_copy">
+      © 2025 Tinkebell Solution. Haki zote zimehifadhiwa. Tanzania.
+    </p>
+
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
