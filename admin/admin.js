@@ -2,7 +2,7 @@
    SEHEMU 1: VARIABLES ZA HALI YA PROGRAMU
    ================================================================ */
 
-const ADMIN_CREDS = { user: 'admin', pass: 'tinkebell2025' };
+const ADMIN_CREDS = { user: 'Thedora Sikazwe', pass: 'tinkebell2025' };
 const PASS_KEY    = 'tinkebell_admin_pass';
 
 // Maombi yote - yanajazwa kutoka Supabase
