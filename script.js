@@ -1,6 +1,3 @@
-/* ================================================
-   SEHEMU 1: MANENO YA LUGHA MBILI
-================================================ */
 
 const lugha = {
   nav_home:     { sw: "Nyumbani",          en: "Home" },
@@ -117,6 +114,10 @@ const lugha = {
 ================================================ */
 let lughaYaSasa = "sw";
 
+
+/* ================================================
+   SEHEMU 3: FUNCTION YA KUBADILISHA LUGHA
+================================================ */
 function badilishaLugha() {
   /* Badilisha lugha: kama ni sw nenda en, au kinyume chake
      Hii inaitwa ternary operator - njia fupi ya if/else */
@@ -124,7 +125,7 @@ function badilishaLugha() {
 
   /* Badilisha maandishi ya kitufe */
   const kitufe = document.getElementById("langToggle");
-  kitufe.textContent = (lughaYaSasa === "sw") ? "🌐 Kiswahili" : "🌐 English";
+  kitufe.textContent = (lughaYaSasa === "sw") ? "🌐 English" : "🌐 Kiswahili";
 
   /* Badilisha lugha ya HTML tag */
   document.documentElement.lang = lughaYaSasa;
@@ -132,6 +133,8 @@ function badilishaLugha() {
   /* Badilisha maandishi yote kwenye ukurasa */
   wekaMaandishi();
 }
+
+
 /* ================================================
    SEHEMU 4: FUNCTION YA KUWEKA MAANDISHI
    Inatafuta elements zote zenye data-key
@@ -151,6 +154,8 @@ function wekaMaandishi() {
     }
   });
 }
+
+
 /* ================================================
    SEHEMU 5: VALIDATION YA FOMU
    Inathibitisha mtumiaji amejaza fomu vizuri.
@@ -201,20 +206,41 @@ function thibitishaFormu(tukio) {
     onyeshaKosa("huduma", lugha["err_huduma_wazi"][lughaYaSasa]);
     kuna_kosa = true;
   }
+
+  /* Kama hakuna makosa, tuma fomu */
   if (!kuna_kosa) {
     tumiaFormu();
   }
 }
 
+
+/* ================================================
+   FUNCTION: Angalia simu
+   RegEx /^(\+255|0)[67]\d{8}$/ inamaanisha:
+   - Anza na +255 au 0
+   - Tarakimu inayofuata: 6 au 7
+   - Kisha tarakimu 8 zaidi
+   - Jumla: nambari kamili za Tanzania
+================================================ */
 function simuNiSahihi(nambari) {
   const muundo = /^(\+255|0)[67]\d{8}$/;
-  return muundo.test(nambari); 
+  return muundo.test(nambari); /* test() = angalia kama inafanana */
 }
+
+
+/* ================================================
+   FUNCTION: Angalia email
+   Email sahihi lazima iwe na @ na .
+================================================ */
 function emailNiSahihi(barua) {
   const muundo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return muundo.test(barua);
 }
 
+
+/* ================================================
+   FUNCTION: Onyesha kosa kwenye field
+================================================ */
 function onyeshaKosa(field, ujumbe) {
   /* Pata sanduku la kosa na weka ujumbe */
   const kisanduku = document.getElementById(field + "-error");
@@ -225,6 +251,8 @@ function onyeshaKosa(field, ujumbe) {
   el.classList.add("field-kosa");
   el.classList.remove("field-sawa");
 }
+
+
 /* ================================================
    FUNCTION: Futa makosa yote
 ================================================ */
@@ -243,34 +271,92 @@ function futaMakosa() {
   });
 }
 
-function tumiaFormu() {
+
+/* ================================================
+   FUNCTION: Tuma fomu (baada ya validation kupita)
+   Kwa kawaida ungetuma data kwa server.
+   Kwa sasa tunaonyesha ujumbe wa mafanikio tu.
+================================================ */
+async function tumiaFormu() {
   const kitufe = document.getElementById("submitBtn");
+
+  /* Pata thamani za fomu */
+  const jina   = document.getElementById("jina").value.trim();
+  const simu   = document.getElementById("simu").value.trim();
+  const email  = document.getElementById("email").value.trim();
+  const huduma = document.getElementById("huduma").value;
+  const ujumbe = document.getElementById("ujumbe") ? document.getElementById("ujumbe").value.trim() : "";
 
   /* Badilisha kitufe kuonyesha inafanya kazi */
   kitufe.textContent = "⏳ Inatuma...";
   kitufe.disabled = true;
 
-  /* setTimeout = subiri millisecunde 1500 kisha fanya kitu */
-  setTimeout(function() {
-    kitufe.style.display = "none";
+  /*
+    TUMA DATA KWENYE SUPABASE
+    Tunatumia fetch() kuwasiliana na Supabase API moja kwa moja
+    Hii inafanya kazi bila library yoyote
+  */
+  try {
+    const response = await fetch(
+      "https://ulxuoczpzsqhjsbegdve.supabase.co/rest/v1/Maombi",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVseHVvY3pwenNxaGpzYmVnZHZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTA4MDIsImV4cCI6MjA4OTY4NjgwMn0.dWg0JKXD-3aP4JWJCYOAp9XpPYnyRK4aj3lgA3hr2c8",
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVseHVvY3pwenNxaGpzYmVnZHZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTA4MDIsImV4cCI6MjA4OTY4NjgwMn0.dWg0JKXD-3aP4JWJCYOAp9XpPYnyRK4aj3lgA3hr2c8",
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify({
+          jina:   jina,
+          simu:   simu,
+          email:  email,
+          huduma: huduma,
+          hali:   "Jipya",
+          tarehe: new Date().toISOString().split("T")[0],
+          notes:  ujumbe
+        })
+      }
+    );
 
-    /* Onyesha ujumbe wa mafanikio */
-    const ujumbe = document.getElementById("successMsg");
-    ujumbe.classList.add("inaonyesha");
+    if (response.ok || response.status === 201) {
+      /* MAFANIKIO - onyesha ujumbe wa shukrani */
+      kitufe.style.display = "none";
+      const msgEl = document.getElementById("successMsg");
+      msgEl.classList.add("inaonyesha");
+      document.getElementById("contactForm").reset();
 
-    /* Futa fomu */
-    document.getElementById("contactForm").reset();
+      /* Baada ya sekunde 4, rejea hali ya kawaida */
+      setTimeout(function() {
+        kitufe.textContent = lugha["form_submit"][lughaYaSasa];
+        kitufe.disabled = false;
+        kitufe.style.display = "block";
+        msgEl.classList.remove("inaonyesha");
+      }, 4000);
 
-    /* Baada ya sekunde 4, rejea hali ya kawaida */
+    } else {
+      /* KOSA - onyesha ujumbe wa kosa */
+      const errorData = await response.json();
+      console.error("Supabase error:", errorData);
+      kitufe.textContent = "❌ Kosa! Jaribu tena";
+      kitufe.disabled = false;
+      setTimeout(function() {
+        kitufe.textContent = lugha["form_submit"][lughaYaSasa];
+      }, 3000);
+    }
+
+  } catch (err) {
+    /* KOSA LA MTANDAO */
+    console.error("Network error:", err);
+    kitufe.textContent = "❌ Hakuna mtandao!";
+    kitufe.disabled = false;
     setTimeout(function() {
       kitufe.textContent = lugha["form_submit"][lughaYaSasa];
-      kitufe.disabled = false;
-      kitufe.style.display = "block";
-      ujumbe.classList.remove("inaonyesha");
-    }, 4000);
-
-  }, 1500);
+    }, 3000);
+  }
 }
+
+
 /* ================================================
    SEHEMU 6: MAJIBU YA WAKATI HALISI (Real-time feedback)
    Inaonyesha kijani mtumiaji anapoandika vizuri.
@@ -303,6 +389,8 @@ document.getElementById("email").addEventListener("input", function() {
     if (thamani !== "") this.classList.add("field-sawa");
   }
 });
+
+
 /* ================================================
    SEHEMU 7: NAVBAR INABADILIKA WAKATI WA SCROLL
    scrollY = mtumiaji amesogea chini kiasi gani
@@ -315,6 +403,8 @@ window.addEventListener("scroll", function() {
     navbar.style.boxShadow = "none";
   }
 });
+
+
 /* ================================================
    MWANZO - Inatekelezwa ukurasa unapopakia
 ================================================ */

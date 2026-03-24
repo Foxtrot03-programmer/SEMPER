@@ -1,9 +1,4 @@
 
-
-/*
-  URL ya project yako ya Supabase
-  Hii ni "anwani" ya database yako mtandaoni
-*/
 const SUPABASE_URL = 'https://ulxuoczpzsqhjsbegdve.supabase.co';
 
 /*
