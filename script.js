@@ -209,7 +209,10 @@ function thibitishaFormu(tukio) {
 
   /* Kama hakuna makosa, tuma fomu */
   if (!kuna_kosa) {
-    tumiaFormu();
+    /* tumiaFormu ni async - lazima tuiite vizuri */
+    tumiaFormu().catch(function(err) {
+      console.error("Kosa la kutuma:", err);
+    });
   }
 }
 
@@ -285,7 +288,9 @@ async function tumiaFormu() {
   const simu   = document.getElementById("simu").value.trim();
   const email  = document.getElementById("email").value.trim();
   const huduma = document.getElementById("huduma").value;
-  const ujumbe = document.getElementById("ujumbe") ? document.getElementById("ujumbe").value.trim() : "";
+  /* Pata ujumbe - angalia kama field ipo kwanza */
+  const ujumbeField = document.getElementById("ujumbe");
+  const ujumbe = ujumbeField ? ujumbeField.value.trim() : "";
 
   /* Badilisha kitufe kuonyesha inafanya kazi */
   kitufe.textContent = "⏳ Inatuma...";
@@ -411,4 +416,4 @@ window.addEventListener("scroll", function() {
 document.addEventListener("DOMContentLoaded", function() {
   wekaMaandishi();
   console.log("Tinkebell Solution imepakia vizuri!");
-});
+});6
