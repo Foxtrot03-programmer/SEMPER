@@ -1,25 +1,8 @@
-/*
-  ================================================================
-  TINKEBELL SOLUTION - admin.js (Toleo jipya na Supabase)
-  ================================================================
-  Tofauti na toleo la zamani:
-  - ZAMANI: data ilihifadhiwa kwenye localStorage (browser moja tu)
-  - MPYA:   data inahifadhiwa kwenye Supabase (mtandaoni, kila mahali)
-
-  Mabadiliko makuu:
-  - paikiData()    -> inapakia kutoka Supabase badala ya localStorage
-  - hifadhiData()  -> imefutwa (Supabase inashughulikia yenyewe)
-  - hifadhiOmbi()  -> inatumia db.insert() au db.update()
-  - funaOmbi()     -> inatumia db.delete()
-  ================================================================
-*/
-
-
 /* ================================================================
    SEHEMU 1: VARIABLES ZA HALI YA PROGRAMU
    ================================================================ */
 
-const ADMIN_CREDS = { user: 'Theodora', pass: 'tinkebell2025' };
+const ADMIN_CREDS = { user: 'admin', pass: 'tinkebell2025' };
 const PASS_KEY    = 'tinkebell_admin_pass';
 
 // Maombi yote - yanajazwa kutoka Supabase
@@ -104,6 +87,11 @@ function fanyaLogin() {
     // Pakia data kutoka Supabase mara baada ya login
     paikiDataSupabase();
     onyeshaDateDisplay();
+
+    // Auto-refresh kila sekunde 30 - ona maombi mapya otomatiki
+    setInterval(function() {
+      paikiDataSupabase();
+    }, 30000);
   } else {
     document.getElementById('loginError').style.display = 'block';
     setTimeout(() => {
@@ -139,12 +127,13 @@ async function paikiDataSupabase() {
   const { data, error } = await db.selectAll();
 
   if (error) {
-    console.error('Kosa la Supabase:', error);
+    console.error('Kosa la Supabase:', JSON.stringify(error));
     onyeshaToast('Kosa la kupakia data! Angalia connection.', 'error');
     allMaombi = [];
   } else {
     // data = array ya maombi yote kutoka Supabase
-    allMaombi = data;
+    allMaombi = data || [];
+    console.log('Maombi yaliyopatikana:', allMaombi.length);
   }
 
   // Sasisha dashboard na data mpya
@@ -597,6 +586,78 @@ function futaDataYote() {
 }
 
 
+
+/* ================================================================
+   FORGOT PASSWORD - Kubadilisha nywila bila kujua ya zamani
+   Inafanya kazi kwa sababu mtumiaji yuko kwenye device yake mwenyewe
+   ================================================================ */
+
+/*
+  funguaForgotPassword() - Fungua modal ya kubadilisha nywila
+  Inaitwa onclick ya "Umesahau nywila?" link
+*/
+function funguaForgotPassword() {
+  // Futa fields za zamani
+  document.getElementById('forgotNewPass').value     = '';
+  document.getElementById('forgotConfirmPass').value = '';
+
+  // Ficha ujumbe wa kosa/mafanikio
+  document.getElementById('forgotError').style.display   = 'none';
+  document.getElementById('forgotSuccess').style.display = 'none';
+
+  // Onyesha modal
+  document.getElementById('forgotModal').classList.add('open');
+}
+
+/*
+  fungaForgotModal() - Funga modal ya forgot password
+*/
+function fungaForgotModal() {
+  document.getElementById('forgotModal').classList.remove('open');
+}
+
+/*
+  hifadhiNywilaMpya() - Hifadhi nywila mpya
+  Haihitaji nywila ya zamani - ni "reset" kamili
+*/
+function hifadhiNywilaMpya() {
+  const newPass     = document.getElementById('forgotNewPass').value;
+  const confirmPass = document.getElementById('forgotConfirmPass').value;
+  const errorEl     = document.getElementById('forgotError');
+  const successEl   = document.getElementById('forgotSuccess');
+
+  // Ficha ujumbe wa zamani
+  errorEl.style.display   = 'none';
+  successEl.style.display = 'none';
+
+  // Validation
+  if (newPass.length < 6) {
+    errorEl.textContent    = '⚠️ Nywila iwe na herufi angalau 6!';
+    errorEl.style.display  = 'block';
+    return;
+  }
+
+  if (newPass !== confirmPass) {
+    errorEl.textContent    = '⚠️ Nywila mbili hazifanani!';
+    errorEl.style.display  = 'block';
+    return;
+  }
+
+  // Hifadhi nywila mpya kwenye localStorage
+  localStorage.setItem(PASS_KEY, newPass);
+
+  // Onyesha mafanikio
+  successEl.style.display = 'block';
+
+  // Funga modal baada ya sekunde 2
+  setTimeout(function() {
+    fungaForgotModal();
+    // Weka focus kwenye password field ya login
+    document.getElementById('loginPass').focus();
+    onyeshaToast && onyeshaToast('Nywila imebadilishwa! Ingia sasa.', 'success');
+  }, 2000);
+}
+
 /* ================================================================
    SEHEMU 16: INIT
    ================================================================ */
@@ -617,6 +678,14 @@ document.addEventListener('DOMContentLoaded', function() {
   if (overlay) {
     overlay.addEventListener('click', function(e) {
       if (e.target === this) fungaModal();
+    });
+  }
+
+  // Funga forgotModal ukibonyeza nje
+  const forgotOverlay = document.getElementById('forgotModal');
+  if (forgotOverlay) {
+    forgotOverlay.addEventListener('click', function(e) {
+      if (e.target === this) fungaForgotModal();
     });
   }
 });

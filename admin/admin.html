@@ -1,16 +1,44 @@
 <!DOCTYPE html>
+<!--
+  ================================================================
+  TINKEBELL SOLUTION — Admin Dashboard
+  Faili: admin.html
+  ================================================================
+  Faili hii inashikilia MUUNDO tu wa dashboard.
+  Rangi na muundo  → admin.css
+  Vitendo na mantiki → admin.js
+
+  Jinsi faili tatu zinavyounganishwa:
+    admin.html  ← unaunganisha →  admin.css  (line 14)
+    admin.html  ← unaunganisha →  admin.js   (line ya mwisho)
+  ================================================================
+-->
 <html lang="sw">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TINKEBELL SOLUTION — Admin</title>
 
+  <!--
+    Google Fonts — Fonts nzuri mbili:
+    Syne    = kwa vichwa vikubwa (bold na ya kisasa)
+    DM Sans = kwa maandishi ya kawaida (rahisi kusoma)
+  -->
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+  <!--
+    Unganisha admin.css — muundo wote wa rangi na mpangilio
+    href="admin.css" = faili ipo kwenye folder moja (admin/)
+  -->
   <link rel="stylesheet" href="admin.css">
 </head>
 <body>
 
+
+<!-- ================================================================
+     LOGIN SCREEN — Inaonekana kwanza kabla ya kuingia
+     Baada ya kuingia itafichwa na dashboard itaonekana
+     ================================================================ -->
 <div id="loginScreen">
   <div class="login-box">
 
@@ -44,13 +72,66 @@
       ⚠️ Jina au nywila si sahihi. Jaribu tena.
     </p>
 
-    <!-- Maelezo ya demo kwa mtumiaji wa mara ya kwanza -->
-    <p style="font-size:.75rem;color:var(--text2);margin-top:1.5rem;">
-      Demo login: jina <strong>admin</strong> | nywila <strong>tinkebell2025</strong>
+    <!-- Kiungo cha kusahau nywila -->
+    <p style="margin-top:1rem;">
+      <a href="#" onclick="funguaForgotPassword()" class="forgot-link">
+        Umesahau nywila?
+      </a>
     </p>
 
   </div>
 </div><!-- /loginScreen -->
+
+<!-- ================================================================
+     FORGOT PASSWORD MODAL
+     Popup inayoonekana mtumiaji akisahau nywila
+     ================================================================ -->
+<div class="modal-overlay" id="forgotModal">
+  <div class="modal" style="max-width:400px;">
+
+    <div class="modal-header">
+      <h2 class="modal-title">🔑 Weka Nywila Mpya</h2>
+      <button class="modal-close" onclick="fungaForgotModal()">✕</button>
+    </div>
+
+    <!-- Maelezo -->
+    <p style="font-size:.85rem;color:var(--text2);margin-bottom:1.5rem;line-height:1.6;">
+      Weka nywila mpya hapa chini. Baada ya kubadilisha, utahitaji kuingia tena.
+    </p>
+
+    <!-- Nywila Mpya -->
+    <div class="form-group">
+      <label class="form-label">NYWILA MPYA *</label>
+      <input type="password" class="form-input" id="forgotNewPass"
+             placeholder="Andika nywila mpya (angalau herufi 6)">
+    </div>
+
+    <!-- Thibitisha Nywila -->
+    <div class="form-group">
+      <label class="form-label">THIBITISHA NYWILA *</label>
+      <input type="password" class="form-input" id="forgotConfirmPass"
+             placeholder="Andika tena nywila hiyo hiyo">
+    </div>
+
+    <!-- Ujumbe wa kosa -->
+    <p class="login-error" id="forgotError" style="display:none;margin-bottom:1rem;">
+    </p>
+
+    <!-- Ujumbe wa mafanikio -->
+    <p id="forgotSuccess"
+       style="display:none;color:var(--green);font-size:.85rem;margin-bottom:1rem;font-weight:600;">
+      ✅ Nywila imebadilishwa! Ingia sasa.
+    </p>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="fungaForgotModal()">Ghairi</button>
+      <button class="btn-save" onclick="hifadhiNywilaMpya()">
+        💾 Hifadhi Nywila
+      </button>
+    </div>
+
+  </div>
+</div><!-- /forgotModal -->
 
 
 <!-- ================================================================
@@ -121,7 +202,7 @@
           <!-- Avatar ya herufi -->
           <div class="user-avatar">A</div>
           <div class="user-info">
-            <div class="user-name">Theodora</div>
+            <div class="user-name">Admin</div>
             <div class="user-role">Tinkebell Solution</div>
           </div>
           <!-- Kitufe cha kutoka — toka() ipo kwenye admin.js -->
@@ -147,15 +228,19 @@
         <!-- Kichwa cha ukurasa -->
         <div class="page-header">
           <div>
-            <h1 class="page-title">Habari, Theodora! 👋</h1>
+            <h1 class="page-title">Habari, Admin! 👋</h1>
             <!-- Tarehe ya leo — inajazwa na admin.js -->
             <p class="page-sub" id="dateDisplay"></p>
           </div>
           <div class="header-actions">
             <!-- Kitufe cha kuongeza ombi jipya -->
-            <button class="btn-add" onclick="funguaModalMpya()">
-              + Ombi Jipya
-            </button>
+            <!-- Kitufe cha kupakia upya data kutoka Supabase -->
+          <button class="action-btn" onclick="paikiDataSupabase()" style="margin-right:.5rem;">
+            🔄 Refresh
+          </button>
+          <button class="btn-add" onclick="funguaModalMpya()">
+            + Ombi Jipya
+          </button>
           </div>
         </div>
 
