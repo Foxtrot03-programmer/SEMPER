@@ -226,8 +226,11 @@ function thibitishaFormu(tukio) {
    - Jumla: nambari kamili za Tanzania
 ================================================ */
 function simuNiSahihi(nambari) {
-  const muundo = /^(\+255|0)[67]\d{8}$/;
-  return muundo.test(nambari); /* test() = angalia kama inafanana */
+  /* Ondoa nafasi, dashes na brackets kwanza */
+  const safi = nambari.replace(/[\s\-()]/g, "");
+  /* Kisha angalia format - flexible zaidi */
+  const muundo = /^(\+?255|0)[0-9]{9,10}$/;
+  return muundo.test(safi);
 }
 
 
@@ -416,4 +419,4 @@ window.addEventListener("scroll", function() {
 document.addEventListener("DOMContentLoaded", function() {
   wekaMaandishi();
   console.log("Tinkebell Solution imepakia vizuri!");
-});6
+});
